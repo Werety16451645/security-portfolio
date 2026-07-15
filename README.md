@@ -1,6 +1,6 @@
 # 🔐 Web3 Security Researcher Portfolio
 
-**Дмитрий** | Junior Smart Contract Security Researcher
+**Delayed** | Junior Smart Contract Security Researcher
 
 [![Sherlock](https://img.shields.io/badge/Sherlock-Active-blue)](https://audits.sherlock.xyz)
 [![Immunefi](https://img.shields.io/badge/Immunefi-Registered-green)](https://immunefi.com)
