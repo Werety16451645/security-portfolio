@@ -1,96 +1,108 @@
-Имя: [Дмитрий]
-Специализация: Web3 / Smart Contract Security
-Опыт: 2+ недели активного поиска уязвимостей
-Платформы: Sherlock, Immunefi, Cantina, Code4rena
-📊 Статистика
-Показатель	Значение
-Проанализировано проектов	7
-Найдено уязвимостей	12+
-Отправлено отчётов	2 (ожидают решения)
-Платформ охвачено	5
-🔍 Проекты и находки
-1. Aave V4 (Sherlock) — ⏳ На рассмотрении
-#	Находка	Severity	Файл
-1	Unbounded Loop в setUserPositionManagers()	Medium	Spoke.sol L450
-2	Unbounded Loop в _calculateLiquidationAmounts()	Medium	Spoke.sol L795
+# 🔐 Web3 Security Researcher Portfolio
 
-Описание: Обнаружены циклы без ограничения длины массива, позволяющие атакующему вызвать gas exhaustion и заблокировать работу функций.
+**Дмитрий** | Junior Smart Contract Security Researcher
 
-Навыки: Анализ Solidity-кода, поиск DoS-уязвимостей, написание PoC на Foundry.
-2. Wormhole (Immunefi) — 🔍 Анализ завершён
-#	Находка	Severity	Файл
-1	Missing Input Validation в submitContractUpgrade()	Low	Governance.sol
-2	Missing Event в upgradeImplementation()	Low	Governance.sol
-3	Centralization Risk — 13/19 guardian'ов контролируют все активы	Medium	Governance.sol
+[![Sherlock](https://img.shields.io/badge/Sherlock-Active-blue)](https://audits.sherlock.xyz)
+[![Immunefi](https://img.shields.io/badge/Immunefi-Registered-green)](https://immunefi.com)
+[![Code4rena](https://img.shields.io/badge/Code4rena-Participant-purple)](https://code4rena.com)
 
-Описание: Полный анализ Governance-контрактов Wormhole. Найдены проблемы с валидацией входных данных и centralization-риски.
+---
 
-Навыки: Анализ мостов, governance-механизмов, кросс-чейн протоколов.
-3. Paxos (Cantina) — 🔍 Анализ завершён
-#	Находка	Severity	Файл
-1	Integer Overflow — компилятор 0.4.24 без SafeMath	Medium	PAXGImplementation.sol
-2	Integer Overflow — AddressUtils.sol без SafeMath	Medium	AddressUtils.sol
-3	TODO в production-коде	Low	AddressUtils.sol
+## 📊 Статистика
 
-Описание: Анализ семи репозиториев Paxos. Найдены контракты с устаревшим компилятором без защиты от переполнений.
+| Метрика | Значение |
+|---|---|
+| Проектов проанализировано | 7 |
+| Уязвимостей найдено | 12+ |
+| Отчётов на рассмотрении | 2 (Medium) |
+| Охвачено платформ | 5 |
 
-Навыки: Анализ стейблкоинов, ERC-20 токенов, прокси-контрактов.
-4. Lido DAO (Immunefi) — 🔍 Анализ завершён
-#	Находка	Severity	Файл
-1	Missing Input Validation в 50+ функциях	Low	StakingRouter.sol, Dashboard.sol
+---
 
-Описание: Обнаружено отсутствие проверки длины входных данных в governance-функциях Lido.
+## 🏆 Отчёты на рассмотрении
 
-Навыки: Анализ LSD-протоколов, governance-механизмов.
-5. Metric DEX (Sherlock) — 🔍 Анализ завершён
+### Aave V4 — Sherlock (⏳ ожидание)
 
-Описание: Изучены смарт-контракты oracle-based DEX. Выявлены потенциальные проблемы с округлениями и staleness-проверками оракулов.
+| # | Уязвимость | Severity | Контракт |
+|---|---|---|---|
+| 1 | Unbounded Loop в `setUserPositionManagers()` | Medium | `Spoke.sol:450` |
+| 2 | Unbounded Loop в `_calculateLiquidationAmounts()` | Medium | `Spoke.sol:795` |
 
-Навыки: Анализ DEX, оракулов, ценовых механизмов.
-6. DRE App / dreUSD (Sherlock) — 🔍 Анализ завершён
+**Impact:** Gas exhaustion через неограниченные циклы, блокировка ликвидаций.
 
-Описание: Проанализирован стейблкоин-протокол с кросс-чейн мостами. Изучены ERC-4626 vault, withdrawal NFT, кросс-чейн compliance.
+**PoC:** Foundry-тесты с демонстрацией линейного роста газа.
 
-Навыки: ERC-4626, LayerZero OFT, compliance-механизмы.
-7. LayerZero Stellar (Code4rena) — 🔍 Анализ завершён
+---
 
-Описание: Изучена Rust-реализация LayerZero V2 на Soroban (Stellar). Анализ TTL-хранения, кросс-чейн сообщений.
+## 🔍 Завершённые исследования
 
-Навыки: Rust, Soroban, кросс-чейн протоколы.
-🛠 Технические навыки
-Категория	Навыки
-Языки	Solidity, Python, Rust (базовый)
-Инструменты	Foundry, Git, VS Code
-Блокчейны	Ethereum, Solana, Base, Arbitrum, Stellar
-Уязвимости	Reentrancy, Integer Overflow, Access Control, DoS, Centralization, Missing Validation
-Стандарты	ERC-20, ERC-721, ERC-4626, EIP-2612, UUPS
-Протоколы	Aave, Wormhole, Lido, LayerZero, Paxos
-📜 Сертификаты и обучение
+### Wormhole (Immunefi)
+- `submitContractUpgrade()` — Missing Input Validation (Low)
+- `upgradeImplementation()` — Missing Event Emission (Low)
+- Guardian Set — Centralization Risk (Medium)
 
-    ✅ CTF: Ethernaut (в процессе)
+### Paxos (Cantina)
+- `PAXGImplementation.sol` — Integer Overflow 0.4.24 без SafeMath (Medium)
+- `AddressUtils.sol` — Integer Overflow без SafeMath (Medium)
+- TODO в production-коде (Low)
 
-    ✅ Code4rena: анализ LayerZero Stellar
+### Lido DAO (Immunefi)
+- 50+ функций без валидации входных данных (Low)
 
-    ✅ Sherlock: активный участник
+### Metric DEX (Sherlock)
+- Анализ округлений и staleness-проверок оракулов
 
-🎯 Цели
+### DRE App / dreUSD (Sherlock)
+- ERC-4626 vault, withdrawal NFT, LayerZero кросс-чейн compliance
 
-    Получить первую выплату за bug bounty
+### LayerZero Stellar (Code4rena)
+- Rust/Soroban реализация, TTL-хранение, кросс-чейн сообщения
 
-    Выйти на Junior Security Researcher
+---
 
-    Освоить фаззинг (Echidna, Foundry fuzzing)
+## 🛠 Технический стек
 
-    Изучить формальную верификацию
+| Категория | Технологии |
+|---|---|
+| **Языки** | Solidity, Python, Rust (basics) |
+| **Фреймворки** | Foundry, Hardhat |
+| **Блокчейны** | Ethereum, Solana, Base, Arbitrum, Stellar |
+| **Стандарты** | ERC-20, ERC-721, ERC-4626, EIP-2612, UUPS |
+| **Протоколы** | Aave V4, Wormhole, Lido, LayerZero, Paxos |
 
-📞 Контакты
+**Типы уязвимостей:**
+- DoS (Gas Exhaustion, Unbounded Loops)
+- Integer Overflow/Underflow
+- Access Control / Centralization
+- Missing Input Validation
+- Missing Events
 
-    GitHub: [Werety16451645]
+---
 
-    Sherlock: [delayed]
+## 📜 Обучение
 
-    Immunefi: [Delayed]
+- 🎮 **Ethernaut CTF** — в процессе
+- 📋 **Code4rena** — LayerZero Stellar contest
+- 🔍 **Sherlock** — активный участник
 
-    Email: [werety1645@gmail.com]
+---
 
-Портфолио создано 16 июля 2026 года. Обновляется по мере находок.
+## 🎯 План развития
+
+- [ ] Получить первую выплату (Aave V4 — на рассмотрении)
+- [ ] Junior Security Researcher
+- [ ] Освоить Echidna / Foundry fuzzing
+- [ ] Формальная верификация (Certora)
+
+---
+
+## 📞 Контакты
+
+- **GitHub:** [@Werety16451645](https://github.com/Werety16451645)
+- **Sherlock:** @delayed
+- **Immunefi:** @Delayed
+- **Email:** werety1645@gmail.com
+
+---
+
+*Последнее обновление: 16 июля 2026*
