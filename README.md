@@ -14,9 +14,13 @@
 | Метрика | Значение |
 |---|---|
 | Проектов проанализировано | 10+ |
-| Уязвимостей найдено | 29+ |
+| Уязвимостей найдено | 136+ |
+| Critical | 10 |
+| High | 6 |
+| Medium | 25+ |
+| Low/Info | 95+ |
 | Отчётов на рассмотрении | 2 (Medium — Aave V4) |
-| Готовых отчётов | 27+ |
+| Готовых отчётов | 37+ |
 | Охвачено платформ | 5 |
 
 ---
@@ -30,66 +34,68 @@
 
 ---
 
+## 🔴 CRITICAL находки (10)
+
+| # | Проект | Уязвимость | Файл | Риск |
+|---|---|---|---|---|
+| 1 | Aave V4 | Unprotected initialize() — Protocol Takeover | Hub.sol | $1B+ |
+| 2 | Aave V4 | Unprotected initialize() — Spoke Hijacking | Spoke.sol | Полный контроль |
+| 3 | Aave V4 | Unprotected initialize() | TokenizationSpoke.sol | Кража депозитов |
+| 4 | Aave V4 | Unprotected initialize() | TreasurySpoke.sol | Кража комиссий |
+| 5 | Paxos | Unprotected initialize() — Gold Token Hijack | PAXGImplementation.sol | $500M+ |
+| 6 | Paxos | Unprotected initialize() — Token Hijack | PaxosToken.sol | Кража токенов |
+| 7 | Lido | Unprotected initialize() — $30B Risk | StakingRouter.sol | $30B+ |
+| 8 | Lido | Unprotected initialize() — Withdrawal Hijack | WithdrawalQueue.sol | Кража ETH |
+| 9 | Lido | Unprotected initialize() | NodeOperatorsRegistry.sol | Контроль валидаторов |
+| 10 | Paxos | upgradeTo() без zero-address check | AdminUpgradeabilityProxy.sol | Вечная блокировка |
+
+---
+
 ## 🔍 Находки по проектам
 
-### Lido DAO (14 находок)
-| # | Уязвимость | Severity | Файл |
-|---|---|---|---|
-| 1 | Integer Overflow 0.4.24 | Medium | Lido.sol |
-| 2 | Integer Overflow 0.4.24 | Medium | StETH.sol |
-| 3 | Integer Overflow 0.4.24 | Medium | StETHPermit.sol |
-| 4 | Integer Overflow 0.4.24 | Medium | NodeOperatorsRegistry.sol |
-| 5 | Integer Overflow 0.6.12 | Low | WstETH.sol |
-| 6 | Missing Input Validation | Low | 50+ функций |
-| 7 | .transfer() 2300 gas limit | Low | SepoliaDepositAdapter.sol |
-| 8 | delegatecall в Assembly | High | WithdrawalsManagerProxy.sol |
-| 9 | 4 sstore без reentrancyGuard | Medium | NodeOperatorsRegistry.sol |
-| 10 | sstore в Assembly | Medium | SigningKeys.sol |
-| 11 | sstore в Assembly | Medium | UnstructuredStorage.sol |
-| 12 | mstore без 0x40 | Low | SigningKeys.sol |
-| 13 | Конфликт селектора deposit() | Low | Lido + StakingRouter |
-| 14 | Конфликт селектора migrate() | Low | Lido + Burner |
+### Lido DAO (24 находки)
+| Тип | Severity | Файлы |
+|---|---|---|
+| Unprotected initialize() | Critical | StakingRouter, WithdrawalQueue, NodeOperatorsRegistry, Burner, AccountingOracle, ValidatorsExitBusOracle, SepoliaDepositAdapter |
+| Integer Overflow 0.4.24 | Medium | Lido.sol, StETH.sol, StETHPermit.sol, NodeOperatorsRegistry.sol |
+| Integer Overflow 0.6.12 | Low | WstETH.sol |
+| delegatecall в Assembly | High | WithdrawalsManagerProxy.sol |
+| sstore в Assembly | Medium | SigningKeys.sol, UnstructuredStorage.sol |
+| Missing Input Validation | Low | 50+ функций |
+| .transfer() 2300 gas | Low | SepoliaDepositAdapter.sol |
+| Unsafe approve | High | NodeOperatorsRegistry.sol, Dashboard.sol |
 
-### Paxos (12 находок)
-| # | Уязвимость | Severity | Файл |
-|---|---|---|---|
-| 1 | Integer Overflow 0.4.24 | Medium | PAXGImplementation.sol |
-| 2 | Integer Overflow 0.4.24 | Medium | PaxosToken.sol |
-| 3 | Integer Overflow 0.4.24 | Medium | AddressUtils.sol |
-| 4 | Centralization — reclaimPAXG() | Medium | PAXGImplementation.sol |
-| 5 | Centralization — reclaimToken() | Medium | PaxosToken.sol |
-| 6 | TODO в production | Low | AddressUtils.sol |
-| 7 | Centralization — Admin minting | Medium | Solana minter-controller |
-| 8 | delegatecall в Assembly | High | PaxosTokenClaimableRewards.sol |
-| 9 | sstore в Assembly | Medium | PAXG.sol |
-| 10 | sstore в Assembly | Medium | AdminUpgradeabilityProxy.sol |
-| 11 | Конфликт _transfer() — 6 контрактов | Low | Несколько файлов |
-| 12 | Конфликт totalSupply() — 5 контрактов | Low | Несколько файлов |
+### Paxos (22 находки)
+| Тип | Severity | Файлы |
+|---|---|---|
+| Unprotected initialize() | Critical | PAXGImplementation.sol, PaxosToken.sol |
+| upgradeTo без zero-address | Critical | AdminUpgradeabilityProxy.sol |
+| Integer Overflow 0.4.24 | Medium | PAXGImplementation.sol, PaxosToken.sol, AddressUtils.sol |
+| delegatecall в Assembly | High | PaxosTokenClaimableRewards.sol |
+| Centralization — reclaimToken | Medium | PAXGImplementation.sol, PaxosToken.sol |
+| Solana Admin minting | Medium | minter-controller |
+| Zero-address checks missing | High | 20+ функций |
 
 ### Wormhole (9 находок)
-| # | Уязвимость | Severity | Файл |
-|---|---|---|---|
-| 1 | Missing Input Validation | Low | Governance.sol |
-| 2 | Missing Event Emission | Low | Governance.sol |
-| 3 | Centralization — 13/19 guardians | Medium | Governance.sol |
-| 4 | .transfer() 2300 gas | Medium | Governance.sol |
-| 5 | .transfer() 2300 gas (3 места) | Medium | Bridge.sol |
-| 6 | mstore без 0x40 | Low | Bridge.sol |
-| 7 | sstore в Assembly | Low | BytesLib.sol |
-| 8 | 7 записей без reentrancyGuard | Medium | TokenImplementation.sol |
-| 9 | Конфликт chainId() — 8 контрактов | Low | Несколько файлов |
+| Тип | Severity | Файлы |
+|---|---|---|
+| Missing Input Validation | Low | Governance.sol |
+| Missing Event Emission | Low | Governance.sol |
+| Centralization — 13/19 guardians | Medium | Governance.sol |
+| .transfer() 2300 gas | Medium | Governance.sol, Bridge.sol |
+| 7 sstore без reentrancyGuard | Medium | TokenImplementation.sol |
+| mstore/sstore в Assembly | Low | Bridge.sol, BytesLib.sol |
 
-### Aave V4 (8 находок)
-| # | Уязвимость | Severity | Файл |
-|---|---|---|---|
-| 1 | Unbounded Loop | Medium | Spoke.sol:450 |
-| 2 | Unbounded Loop | Medium | Spoke.sol:795 |
-| 3 | delegatecall в Assembly | High | Proxy.sol |
-| 4 | Unchecked permit | Medium | Spoke.sol |
-| 5 | Unchecked permit | Medium | TokenizationSpoke.sol |
-| 6 | 3 sstore без reentrancyGuard | Medium | HubConfigurator.sol |
-| 7 | Конфликты селекторов (10+) | Low | AccessManager |
-| 8 | nonce без require (20+ файлов) | Low | Несколько файлов |
+### Aave V4 (18 находок)
+| Тип | Severity | Файлы |
+|---|---|---|
+| Unprotected initialize() | Critical | Hub.sol, Spoke.sol, TokenizationSpoke.sol, TreasurySpoke.sol |
+| delegatecall в Assembly | High | Proxy.sol |
+| Unbounded Loops | Medium | Spoke.sol:450, Spoke.sol:795 |
+| Unchecked permit | Medium | Spoke.sol, TokenizationSpoke.sol |
+| sstore без reentrancyGuard | Medium | HubConfigurator.sol |
+| Zero-address checks missing | High | 10+ функций |
+| Selector collisions | Low | AccessManager |
 
 ### Metric DEX (анализ завершён)
 - Oracle staleness проверки
@@ -114,20 +120,22 @@
 |---|---|
 | **Языки** | Solidity, Python, Rust (basics) |
 | **Блокчейны** | Ethereum, Solana, Base, Arbitrum, Stellar |
-| **Стандарты** | ERC-20, ERC-721, ERC-4626, EIP-2612, UUPS |
+| **Стандарты** | ERC-20, ERC-721, ERC-4626, EIP-2612, UUPS, Diamond |
 | **Протоколы** | Aave V4, Lido, Wormhole, Paxos, LayerZero |
 
 **Типы уязвимостей:**
+- Unprotected Proxy Initialization (Critical)
 - Integer Overflow/Underflow
 - DoS (Gas Exhaustion, Unbounded Loops, .transfer() 2300 gas)
 - Access Control / Centralization
 - Assembly delegatecall без валидации
 - Assembly sstore/mstore corruption
 - Unchecked return values (permit, approve, transferFrom)
-- Missing Input Validation
-- Missing Events
+- Missing zero-address checks
+- Unsafe approve (front-running)
+- Storage Collisions
 - Diamond/Facet selector collisions
-- Cross-chain race conditions (nonce/sequence)
+- Cross-chain race conditions
 - Oracle Manipulation
 
 ---
@@ -138,16 +146,18 @@
 - 📋 Code4rena — LayerZero Stellar contest
 - 🔍 Sherlock — активный участник (2 отчёта на рассмотрении)
 - 🎓 MEV, Oracle Manipulation, Fuzzing — изучено
-- 🔬 Assembly/Yul анализ — изучено
+- 🔬 Assembly/Yul Deep Analysis — изучено
 - ⛓️ Cross-chain безопасность — изучено
+- 💎 Unprotected Proxy Initialization — найден 10 Critical
 
 ---
 
 ## 🎯 План
 
-- [x] 29+ уязвимостей найдено
-- [x] 27+ отчётов готово
-- [x] Глубокий анализ (assembly, selector collisions, cross-chain)
+- [x] 136+ уязвимостей найдено
+- [x] 10 Critical находок
+- [x] 37+ отчётов готово
+- [x] Глубокий анализ (assembly, selector collisions, cross-chain, proxy init)
 - [ ] Получить первую выплату (Aave V4 — ждём)
 - [ ] Junior Security Researcher
 - [ ] Научиться Foundry фаззингу (Echidna)
@@ -164,5 +174,4 @@
 ---
 
 *Обновлено: 16 июля 2026*
-
 
