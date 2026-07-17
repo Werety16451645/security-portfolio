@@ -2,7 +2,7 @@
 
 **delayed** | Smart Contract Security Researcher
 
-[![Sherlock](https://img.shields.io/badge/Sherlock-3_Reports_Submitted-blue)](https://audits.sherlock.xyz) [![Immunefi](https://img.shields.io/badge/Immunefi-Registered-green)](https://immunefi.com) [![Code4rena](https://img.shields.io/badge/Code4rena-Participant-purple)](https://code4rena.com) [![Cantina](https://img.shields.io/badge/Cantina-Registered-orange)](https://cantina.xyz)
+[![Sherlock](https://img.shields.io/badge/Sherlock-3_Reports_Submitted-blue)](https://audits.sherlock.xyz) [![Immunefi](https://img.shields.io/badge/Immunefi-Registered-green)](https://immunefi.com) [![Code4rena](https://img.shields.io/badge/Code4rena-Participant-purple)](https://code4rena.com) [![Cantina](https://img.shields.io/badge/Cantina-Registered-orange)](https://cantina.xyz) [![CTF](https://img.shields.io/badge/CTF_Playground-Live-white)](https://werety16451645.github.io/ctf-playground)
 
 ---
 
@@ -22,6 +22,25 @@
 
 ---
 
+## 🎯 CTF Playground — собственный проект
+
+Интерактивная платформа для обучения Web3-безопасности:
+
+🌐 **[werety16451645.github.io/ctf-playground](https://werety16451645.github.io/ctf-playground)**
+
+| Характеристика | Описание |
+|---|---|
+| **Уровней** | 21 |
+| **Категорий уязвимостей** | 21 |
+| **Языки** | English / Русский |
+| **Режим обучения** | Подсказки + теория на каждом уровне |
+| **Технологии** | HTML, CSS, JavaScript |
+| **Дизайн** | Ч/б минимализм, терминальный стиль |
+
+**Уровни:** Re-entrancy, Flash Loan, Oracle Manipulation, Sandwich Attack, Governance Attack, Timelock Bypass, Integer Overflow, Unprotected Proxy, Delegatecall Attack, Selfdestruct Force, tx.origin Attack, Fallback Hijack, Missing Access Control, Zero Address, Unsafe Approve, Unchecked Return, Storage Collision, Selector Clash, Cross-chain Race, Assembly Corruption, Invariant Violation.
+
+---
+
 ## 🛠 Технические навыки
 
 | Навык | Уровень | Инструменты |
@@ -29,6 +48,7 @@
 | Ручной аудит Solidity | ⭐⭐⭐⭐⭐ | VS Code, Foundry |
 | Foundry Fuzzing | ⭐⭐⭐⭐⭐ | forge test --fuzz-runs 10000 |
 | Invariant Testing (Echidna-style) | ⭐⭐⭐⭐⭐ | 256 seq / 128K calls |
+| CTF-разработка | ⭐⭐⭐⭐⭐ | 21-уровневый CTF, GitHub Pages |
 | Assembly / Yul анализ | ⭐⭐⭐⭐ | grep, regex, ручной анализ |
 | Storage Collision Detection | ⭐⭐⭐⭐ | Python-скрипты |
 | Diamond / Facet Selectors | ⭐⭐⭐⭐ | keccak256 анализ |
@@ -43,12 +63,11 @@
 
 ## 🔬 Foundry Invariant Testing
 
-Методология: инварианты протокола → invariant_* функции → случайные действия (deposit, withdraw, transfer) → fuzz-runs 5000-10000 → авто-поиск нарушений.
+Методология: инварианты протокола → invariant_* функции → случайные действия → fuzz-runs 5000-10000 → авто-поиск нарушений.
 
 | Тест | Инвариант | Результат |
 |---|---|---|
 | Bank.sol | totalDeposits - totalWithdrawals == sum(balances) | ❌ Нарушен |
-| Bank.sol | Баланс никогда не отрицательный | ✅ Держится |
 | Aave V4 | Курс обмена > 0 | ❌ Нарушен |
 | Aave V4 | Баланс не отрицательный | ❌ Нарушен |
 | Aave V4 | Проценты ≥ 0 | ✅ Держится |
@@ -113,35 +132,7 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 
 ## 📁 Проекты
 
-**Lido DAO** (24 находки): Unprotected initialize (7) · Integer Overflow 0.4.24 (4) · delegatecall Assembly · sstore Assembly · Unsafe approve (2) · Missing validation · .transfer() gas limit.
-
-**Paxos** (24 находки): Unprotected initialize (2) · upgradeTo zero-address · Integer Overflow 0.4.24 (3) · delegatecall Assembly · Centralization (3) · Solana Admin minting · Solana timelock missing · Zero-address checks (20+).
-
-**Wormhole** (10 находок): Missing validation · Missing events · Centralization 13/19 · .transfer() gas limit (4) · sstore без reentrancyGuard (7 writes) · Assembly corruption · Re-entrancy risk Governance.
-
-**Aave V4** (20 находок): Unprotected initialize (4) · delegatecall Assembly · Unbounded Loops (2) · Unchecked permit (2) · sstore без reentrancyGuard · Zero-address checks (10+) · Selector collisions · Invariant violations (2).
-
-**Metric DEX** (анализ завершён): Oracle staleness · Anchored band clipping · Rounding mechanisms.
-
-**DRE App / dreUSD** (анализ завершён): ERC-4626 vault · Withdrawal NFT · Cross-chain compliance.
-
-**LayerZero Stellar** (Code4rena): Rust/Soroban · TTL storage · Abstract Account patterns.
-
-**Phantom** (scope изучен): Solana PSOL/CASH · Client-Side · Web · Infrastructure.
-
----
-
-## 🛠 Технологический стек
-
-| Категория | Технологии |
-|---|---|
-| **Языки** | Solidity, Python, Rust (basics) |
-| **Фреймворки** | Foundry (fuzzing, invariant testing, PoC), Anchor (Solana) |
-| **Блокчейны** | Ethereum, Solana, Base, Arbitrum, Stellar |
-| **Стандарты** | ERC-20, ERC-721, ERC-4626, EIP-2612, UUPS, Diamond, SPL Token |
-| **Протоколы** | Aave V4, Lido, Wormhole, Paxos, LayerZero, Phantom |
-
-**21 категория уязвимостей:** Unprotected Proxy Init · Integer Overflow/Underflow · DoS (Gas, Loops, .transfer) · Access Control/Centralization · Assembly delegatecall · Assembly sstore/mstore · Unchecked returns · Missing zero-address · Unsafe approve · Storage Collisions · Diamond selector collisions · Cross-chain race · Oracle Manipulation · Exchange rate manipulation · Arithmetic underflow · ReentrancyGuard bypass · Empty pool exploit · Invariant violations · Accounting corruption · Missing Timelock · Flash Loan attacks.
+**Lido DAO** (24 находки) · **Paxos** (24 находки) · **Wormhole** (10 находок) · **Aave V4** (20 находок) · **Metric DEX** · **DRE App** · **LayerZero Stellar** · **Phantom**
 
 ---
 
@@ -149,36 +140,25 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 
 | Ресурс | Прогресс |
 |---|---|
-| 🎮 Ethernaut CTF | 14 уровней пройдено |
-| 🔴 Damn Vulnerable DeFi | 12 уровней пройдено |
-| 📋 Code4rena | LayerZero Stellar contest |
-| 🔍 Sherlock | 3 отчёта на рассмотрении |
-| 🎓 MEV & Oracle | Sandwich, TWAP, Chainlink — изучено |
-| 🔬 Assembly/Yul | Deep Analysis — изучено |
-| ⛓️ Cross-chain | LayerZero, Wormhole — изучено |
-| 💎 Proxy Init | 10 Critical найдено |
+| 🎯 Собственный CTF | 21 уровень — [открыть](https://werety16451645.github.io/ctf-playground) |
+| 🎮 Ethernaut CTF | 14 уровней |
+| 🔴 Damn Vulnerable DeFi | 12 уровней |
+| 📋 Code4rena | LayerZero Stellar |
+| 🔍 Sherlock | 3 отчёта |
 | 🧪 Fuzzing | 10,000+ прогонов |
 | 🔬 Invariant Testing | 128,000+ вызовов |
-| 🦀 Rust/Solana | minter-controller проанализирован |
+| 🦀 Rust/Solana | minter-controller |
 
 ---
 
-## 🎯 План развития
+## 🎯 План
 
-- [x] 145+ уязвимостей найдено
-- [x] 10 Critical находок
-- [x] 39+ отчётов готово
-- [x] Assembly/Storage/Selector глубокий анализ
-- [x] Foundry Fuzzing освоен
-- [x] Foundry Invariant Testing освоен (128K+ вызовов)
-- [x] 14 уровней Ethernaut пройдено
-- [x] 12 уровней Damn Vulnerable DeFi пройдено
-- [x] Rust/Solana audit начат
-- [x] 3 отчёта на рассмотрении Sherlock
-- [ ] Получить первую выплату (Aave V4 — ждём)
-- [ ] Пройти Ethernaut до конца
-- [ ] Echidna (нативный фаззер)
-- [ ] Формальная верификация (Certora)
+- [x] 145+ уязвимостей
+- [x] 10 Critical
+- [x] 39+ отчётов
+- [x] Собственный CTF (21 уровень)
+- [x] GitHub Pages
+- [ ] Первая выплата (Aave V4)
 
 ---
 
@@ -187,10 +167,11 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 | Платформа | Контакт |
 |---|---|
 | **GitHub** | [@Werety16451645](https://github.com/Werety16451645) |
+| **CTF Playground** | [werety16451645.github.io/ctf-playground](https://werety16451645.github.io/ctf-playground) |
 | **Sherlock** | @delayed |
 | **Immunefi** | @Delayed |
 | **Email** | werety1645@gmail.com |
 
 ---
 
-*Обновлено: 17 июля 2026 — добавлен Damn Vulnerable DeFi (12 уровней), Flash Loan атаки*
+*Обновлено: 17 июля 2026 — CTF Playground live на GitHub Pages*
