@@ -10,14 +10,14 @@
 
 | Категория | Количество |
 |---|---|
-| 🔴 Critical | 11 |
+| 🔴 Critical | 12 |
 | 🟠 High | 7 |
-| 🟡 Medium | 32+ |
+| 🟡 Medium | 34+ |
 | 🔵 Low / Info | 100+ |
-| **Всего находок** | **150+** |
-| Готовых отчётов | 42+ |
-| **Отправлено на проверку** | **5** |
-| Проектов проанализировано | 12+ |
+| **Всего находок** | **155+** |
+| Готовых отчётов | 45+ |
+| **Отправлено на проверку** | **6** |
+| Проектов проанализировано | 14+ |
 | Платформ охвачено | 7 |
 
 ---
@@ -35,7 +35,7 @@
 | Навык | Уровень | Инструменты |
 |---|---|---|
 | Ручной аудит Solidity | ⭐⭐⭐⭐⭐ | VS Code, Foundry |
-| Web-пентест (XSS, CORS, IDOR) | ⭐⭐⭐⭐⭐ | Python, Burp Suite |
+| Web-пентест (XSS, CORS, IDOR, OAuth) | ⭐⭐⭐⭐⭐ | Python, Burp Suite |
 | Foundry Fuzzing | ⭐⭐⭐⭐⭐ | forge test --fuzz-runs 10000 |
 | Invariant Testing (Echidna-style) | ⭐⭐⭐⭐⭐ | 256 seq / 128K calls |
 | CTF-разработка | ⭐⭐⭐⭐⭐ | HTML/CSS/JS, GitHub Pages |
@@ -43,27 +43,23 @@
 | Storage Collision Detection | ⭐⭐⭐⭐ | Python-скрипты |
 | Diamond / Facet Selectors | ⭐⭐⭐⭐ | keccak256 анализ |
 | Cross-chain Security | ⭐⭐⭐⭐ | LayerZero, Wormhole |
-| DeFi-атаки (Flash Loans, AMM) | ⭐⭐⭐⭐ | Damn Vulnerable DeFi |
+| DeFi-атаки | ⭐⭐⭐⭐ | Damn Vulnerable DeFi |
 | Ethernaut CTF | ⭐⭐⭐⭐ | 14 уровней |
+| OAuth / Open Redirect / CRLF | ⭐⭐⭐⭐ | Яндекс.Паспорт |
 | MEV / Front-running | ⭐⭐⭐ | Sandwich, Arbitrage |
 | Oracle Manipulation | ⭐⭐⭐ | Spot, TWAP, Chainlink |
-| Rust / Solana Audit | ⭐⭐⭐ | Anchor, SPL Token |
 
 ---
 
 ## 🔬 Foundry Invariant Testing
-
-Методология: инварианты протокола → invariant_* функции → случайные действия → fuzz-runs 5000-10000 → авто-поиск нарушений.
 
 | Тест | Инвариант | Результат |
 |---|---|---|
 | Bank.sol | totalDeposits - totalWithdrawals == sum(balances) | ❌ Нарушен |
 | Aave V4 | Курс обмена > 0 | ❌ Нарушен |
 | Aave V4 | Баланс не отрицательный | ❌ Нарушен |
-| Aave V4 | Проценты ≥ 0 | ✅ Держится |
-| Aave V4 | Ликвидация покрывает долг | ✅ Держится |
 
-Статистика: 10,000+ прогонов · 128,000+ вызовов · 2 инварианта нарушено · ~13 сек
+Статистика: 10,000+ прогонов · 128,000+ вызовов · 2 инварианта нарушено
 
 ---
 
@@ -74,50 +70,46 @@
 | 1 | Sherlock | Aave V4 | Unbounded Loops (×2) | 🟡 Medium | ⏳ Ждём |
 | 2 | Sherlock | Aave V4 | Unchecked permit | 🟡 Medium | ✅ У команды |
 | 3 | Email | Pachca.com | CORS + открытые пути | 🔴 Critical | 📤 Отправлен |
-| 4 | Яндекс | Диск | Information Disclosure | 🟡 Medium | 📤 Отправлен |
-| 5 | Яндекс | Маркет | Reflected XSS | 🟠 High | 📤 Отправлен |
+| 4 | Яндекс | Маркет | Reflected XSS | 🟠 High | 📤 Отправлен |
+| 5 | Яндекс | Диск | Information Disclosure | 🟡 Medium | 📤 Отправлен |
+| 6 | Яндекс | Паспорт | OAuth Open Redirect + CRLF | 🔴 Critical | 📤 Отправлен |
 
 ---
 
-## 🔴 CRITICAL находки (11)
+## 🔴 CRITICAL находки (12)
 
-| # | Проект | Суть | Файл |
-|---|---|---|---|
-| 1 | Aave V4 | initialize() без защиты | Hub.sol |
-| 2 | Aave V4 | initialize() без защиты | Spoke.sol |
-| 3 | Aave V4 | initialize() без защиты | TokenizationSpoke.sol |
-| 4 | Aave V4 | initialize() без защиты | TreasurySpoke.sol |
-| 5 | Paxos | initialize() без защиты | PAXGImplementation.sol |
-| 6 | Paxos | initialize() без защиты | PaxosToken.sol |
-| 7 | Lido | initialize() без защиты | StakingRouter.sol |
-| 8 | Lido | initialize() без защиты | WithdrawalQueue.sol |
-| 9 | Lido | initialize() без защиты | NodeOperatorsRegistry.sol |
-| 10 | Paxos | upgradeTo(address(0)) | AdminUpgradeabilityProxy.sol |
-| 11 | Pachca.com | CORS + открытые пути | api.pachca.com |
+| # | Проект | Суть |
+|---|---|---|
+| 1-4 | Aave V4 | initialize() без защиты (Hub, Spoke, TokenizationSpoke, TreasurySpoke) |
+| 5-6 | Paxos | initialize() без защиты (PAXG, PaxosToken) |
+| 7-9 | Lido | initialize() без защиты (StakingRouter, WithdrawalQueue, NodeOperatorsRegistry) |
+| 10 | Paxos | upgradeTo(address(0)) |
+| 11 | Pachca.com | CORS + открытые пути |
+| 12 | **Яндекс.Паспорт** | **OAuth Open Redirect + CRLF Injection** |
 
 ---
 
 ## 🟠 HIGH находки (7)
 
-Aave V4: delegatecall в Assembly. Paxos: delegatecall в Assembly. Lido: delegatecall в Assembly, Unsafe approve (2). Aave V4: Unsafe approve. **Яндекс.Маркет: отражённый XSS.**
+Aave V4: delegatecall Assembly · Unsafe approve. Paxos: delegatecall Assembly. Lido: delegatecall Assembly · Unsafe approve (2). **Яндекс.Маркет: XSS**.
 
 ---
 
-## 🟡 MEDIUM находки (32+)
+## 🟡 MEDIUM находки (34+)
 
-Aave V4 (7): Unbounded Loops (2), Unchecked permit (2), sstore без Guard, Invariant violations (2). Lido (6): Integer Overflow (4), Assembly sstore (2). Paxos (8): Integer Overflow (3), Centralization (2), Solana admin, Solana timelock, Assembly sstore (2). Wormhole (5): Centralization 13/19, .transfer() gas (2), sstore без Guard, Re-entrancy. Paxos Solana (2). **Яндекс.Диск: Information Disclosure. Ozon: Open Redirect (3). Сбер: Sentry DSN.**
+Aave V4 (7) · Lido (6) · Paxos (8) · Wormhole (5) · Paxos Solana (2) · **Яндекс.Диск: Information Disclosure** · **Яндекс.Путешествия: API без авторизации** · **Ozon: Open Redirect (3)** · **Сбер: Sentry DSN**
 
 ---
 
-## 🔵 LOW / INFO находки (100+)
+## 🔵 LOW / INFO (100+)
 
-Missing Input Validation (50+) · Missing Events · TODO в production · Конфликты селекторов (30+) · Missing zero-address checks (10+) · .transfer() gas limit · nonce без проверок (40+) · mstore без 0x40 · **Яндекс: Open Redirect (2). Сбер: отсутствие CSP/HSTS.**
+Missing Input Validation (50+) · Missing Events · Конфликты селекторов (30+) · Missing zero-address (10+) · nonce без проверок (40+) · **Яндекс: Open Redirect (4 сервиса)** · **VK/RuStore: Open Redirect** · **Сбер: отсутствие CSP/HSTS**
 
 ---
 
 ## 📁 Проекты
 
-**Lido DAO** (24) · **Paxos** (24) · **Wormhole** (10) · **Aave V4** (20) · **Яндекс** (5) · **Ozon** (4) · **Сбер** (3) · **Pachca.com** (2) · Metric DEX · DRE App · LayerZero Stellar · Phantom · Nubank
+**Lido DAO** (24) · **Paxos** (24) · **Wormhole** (10) · **Aave V4** (20) · **Яндекс** (8 находок: XSS, OAuth, CSP, Open Redirect ×4, API) · **Ozon** (4) · **Сбер** (3) · **Pachca.com** (2) · **VK/RuStore** (2) · Metric DEX · DRE App · LayerZero Stellar · Phantom · Nubank
 
 ---
 
@@ -132,20 +124,20 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 | 🔍 Sherlock | 3 отчёта |
 | 🧪 Fuzzing | 10,000+ прогонов |
 | 🔬 Invariant Testing | 128,000+ вызовов |
-| 🌐 Web-пентест | XSS, CORS, IDOR, Open Redirect |
+| 🌐 Web-пентест | XSS, CORS, IDOR, OAuth, CRLF |
+| 🔑 OAuth Security | Open Redirect, CRLF Injection |
 
 ---
 
 ## 🎯 План
 
-- [x] 150+ уязвимостей
-- [x] 11 Critical
-- [x] 42+ отчётов
-- [x] 5 отчётов отправлено
-- [x] Собственный CTF (21 уровень)
-- [x] GitHub Pages
-- [x] Web-пентест (Яндекс, Ozon, Сбер, Pachca)
-- [ ] Первая выплата
+- [x] 155+ уязвимостей
+- [x] 12 Critical
+- [x] 45+ отчётов
+- [x] 6 отчётов отправлено
+- [x] Собственный CTF
+- [x] OAuth/CRLF на Паспорте Яндекса
+- [ ] Первая выплата 💰
 
 ---
 
@@ -161,4 +153,4 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 
 ---
 
-*Обновлено: 17 июля 2026 — добавлены отчёты по Яндексу, Ozon, Сберу, Pachca*
+*Обновлено: 17 июля 2026 — добавлены OAuth CRLF Яндекс.Паспорта, 6 отправленных отчётов*
