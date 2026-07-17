@@ -33,6 +33,7 @@
 | Storage Collision Detection | ⭐⭐⭐⭐ | Python-скрипты |
 | Diamond / Facet Selectors | ⭐⭐⭐⭐ | keccak256 анализ |
 | Cross-chain Security | ⭐⭐⭐⭐ | LayerZero, Wormhole |
+| DeFi-атаки (Flash Loans, AMM) | ⭐⭐⭐⭐ | Damn Vulnerable DeFi |
 | Ethernaut CTF | ⭐⭐⭐⭐ | 14 уровней пройдено |
 | MEV / Front-running | ⭐⭐⭐ | Sandwich, Arbitrage |
 | Oracle Manipulation | ⭐⭐⭐ | Spot, TWAP, Chainlink, Pyth |
@@ -140,7 +141,7 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 | **Стандарты** | ERC-20, ERC-721, ERC-4626, EIP-2612, UUPS, Diamond, SPL Token |
 | **Протоколы** | Aave V4, Lido, Wormhole, Paxos, LayerZero, Phantom |
 
-**20 категорий уязвимостей:** Unprotected Proxy Init · Integer Overflow/Underflow · DoS (Gas, Loops, .transfer) · Access Control/Centralization · Assembly delegatecall · Assembly sstore/mstore · Unchecked returns · Missing zero-address · Unsafe approve · Storage Collisions · Diamond selector collisions · Cross-chain race · Oracle manipulation · Exchange rate · Arithmetic underflow · ReentrancyGuard bypass · Empty pool exploit · Invariant violations · Accounting corruption · Missing Timelock.
+**21 категория уязвимостей:** Unprotected Proxy Init · Integer Overflow/Underflow · DoS (Gas, Loops, .transfer) · Access Control/Centralization · Assembly delegatecall · Assembly sstore/mstore · Unchecked returns · Missing zero-address · Unsafe approve · Storage Collisions · Diamond selector collisions · Cross-chain race · Oracle Manipulation · Exchange rate manipulation · Arithmetic underflow · ReentrancyGuard bypass · Empty pool exploit · Invariant violations · Accounting corruption · Missing Timelock · Flash Loan attacks.
 
 ---
 
@@ -149,6 +150,7 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 | Ресурс | Прогресс |
 |---|---|
 | 🎮 Ethernaut CTF | 14 уровней пройдено |
+| 🔴 Damn Vulnerable DeFi | 12 уровней пройдено |
 | 📋 Code4rena | LayerZero Stellar contest |
 | 🔍 Sherlock | 3 отчёта на рассмотрении |
 | 🎓 MEV & Oracle | Sandwich, TWAP, Chainlink — изучено |
@@ -170,6 +172,7 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 - [x] Foundry Fuzzing освоен
 - [x] Foundry Invariant Testing освоен (128K+ вызовов)
 - [x] 14 уровней Ethernaut пройдено
+- [x] 12 уровней Damn Vulnerable DeFi пройдено
 - [x] Rust/Solana audit начат
 - [x] 3 отчёта на рассмотрении Sherlock
 - [ ] Получить первую выплату (Aave V4 — ждём)
@@ -190,4 +193,4 @@ Missing Input Validation (50+) · Missing Events · TODO в production · Кон
 
 ---
 
-*Обновлено: 17 июля 2026*
+*Обновлено: 17 июля 2026 — добавлен Damn Vulnerable DeFi (12 уровней), Flash Loan атаки*
